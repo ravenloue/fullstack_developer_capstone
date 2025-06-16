@@ -48,14 +48,29 @@ class CarModel(models.Model):
         ('MANUAL', 'Manual')
     ]
     
-    car_make = models.ForeignKey(CarMake, on_delete=models.CASCADE)
+    car_make = models.ForeignKey(CarMake,
+                                 on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
-    type = models.CharField(max_length=20, choices=CAR_TYPES, default='SUV')
-    year = models.IntegerField(default=2025, validators=[MaxValueValidator(2025), MinValueValidator(2015)])
-    engine_type = models.CharField(max_length=10, choices=ENGINE_TYPES, default='GAS')
-    transmission = models.CharField(max_length=10, choices=TRANSMISSION_TYPES, default='AUTO')
-    color = models.CharField(max_length=20, blank=True)
-    price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    type = models.CharField(max_length=20,
+                            choices=CAR_TYPES,
+                            default='SUV')
+    year = models.IntegerField(default=2025,
+                               validators=[
+                                           MaxValueValidator(2025),
+                                           MinValueValidator(2015)
+                                           ])
+    engine_type = models.CharField(max_length=10,
+                                   choices=ENGINE_TYPES,
+                                   default='GAS')
+    transmission = models.CharField(max_length=10,
+                                    choices=TRANSMISSION_TYPES,
+                                    default='AUTO')
+    color = models.CharField(max_length=20,
+                             blank=True)
+    price = models.DecimalField(max_digits=10,
+                                decimal_places=2,
+                                null=True,
+                                blank=True)
 
     def __str__(self):
         return self.name
