@@ -1,8 +1,9 @@
 /* jshint esversion: 8 */
 const express = require('express');
 const mongoose = require('mongoose');
+const mongoURI = process.env.MONGO_URI || 'mongodb://mongo_db:27017/dealershipsDB'
 const fs = require('fs');
-const  cors = require('cors');
+const cors = require('cors');
 const app = express();
 const port = 3030;
 
@@ -12,7 +13,9 @@ const reviews_data = JSON.parse(fs.readFileSync("reviews.json", 'utf8'));
 const dealerships_data = JSON.parse(fs.readFileSync("dealerships.json", 'utf8'));
 const Reviews = require('./review');
 const Dealerships = require('./dealership');
-mongoose.connect("mongodb://mongo_db:27017/",{'dbName':'dealershipsDB'});
+mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('MongoDB connected'))
+  .catch(err => console.error('MongoDB connection error:', err));
 
 async function initializeDatabase(){
     try {
@@ -21,7 +24,7 @@ async function initializeDatabase(){
         await Dealerships.deleteMany({});
         await Dealerships.insertMany(dealerships_data.dealerships);
     } catch (error) {
-        res.status(500).json({ error: 'Error fetching documents' });
+        console.error('Error fetching documents:', error);
     }
 }
 initializeDatabase();

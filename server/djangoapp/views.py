@@ -91,6 +91,9 @@ def get_dealer_reviews(request, dealer_id):
         endpoint = "/fetchReviews/dealer/" + str(dealer_id)
         reviews = get_request(endpoint)
 
+        if not reviews:
+            return JsonResponse({"status": 200, "reviews": []})
+
         for detail in reviews:
             response = analyze_review_sentiments(detail['review'])
             print(response)

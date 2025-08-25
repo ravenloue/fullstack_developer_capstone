@@ -30,12 +30,16 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'localhost',
-    'u3xtr3m3g33k-8000.'
-    'theiadockernext-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai'
+    'dealership-latest.onrender.com'
     ]
 CSRF_TRUSTED_ORIGINS = [
-    'https://u3xtr3m3g33k-8000.'
-    'theiadockernext-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai'
+    'https://dealership-latest.onrender.com',
+    'https://dealership-data-latest.onrender.com',
+    ]
+
+CORS_ALLOWED_ORIGINS = [
+    'https://dealership-latest.onrender.com',
+    'https://dealership-data-latest.onrender.com',
     ]
 
 REST_FRAMEWORK = {
@@ -52,6 +56,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -61,6 +66,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'djangoproj.urls'
