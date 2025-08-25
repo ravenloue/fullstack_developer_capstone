@@ -1,7 +1,7 @@
 /* jshint esversion: 8 */
 const express = require('express');
 const mongoose = require('mongoose');
-const mongoURI = process.env.MONGO_URI || 'mongodb://mongo_db:27017/dealershipsDB'
+const mongoURI = process.env.MONGO_URI || 'mongodb://mongo_db:27017/dealershipsDB';
 const fs = require('fs');
 const cors = require('cors');
 const app = express();
@@ -18,14 +18,14 @@ mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .catch(err => console.error('MongoDB connection error:', err));
 
 async function initializeDatabase(){
-    try {
-        await Reviews.deleteMany({});
-        await Reviews.insertMany(reviews_data.reviews);
-        await Dealerships.deleteMany({});
-        await Dealerships.insertMany(dealerships_data.dealerships);
-    } catch (error) {
-        console.error('Error fetching documents:', error);
-    }
+  try {
+    await Reviews.deleteMany({});
+    await Reviews.insertMany(reviews_data.reviews);
+    await Dealerships.deleteMany({});
+    await Dealerships.insertMany(dealerships_data.dealerships);
+  } catch (error) {
+    console.error('Error fetching documents:', error);
+  }
 }
 initializeDatabase();
 
@@ -50,16 +50,16 @@ app.get('/fetchReviews/dealer/:id', async (req, res) => {
 });
 
 app.get('/fetchDealers', async (req, res) => {
-    try {
-        const documents = await Dealerships.find();
-        res.json(documents);
-    } catch (error) {
-        res.status(500).json({ error: 'Error fetching documents' });
-    }
+  try {
+    const documents = await Dealerships.find();
+    res.json(documents);
+  } catch (error) {
+    res.status(500).json({ error: 'Error fetching documents' });
+  }
 });
 
 app.get('/fetchDealers/:state', async (req, res) => {
-    try {
+  try {
 		const documents = await Dealerships.find({state: req.params.state});
 		res.json(documents);
 	} catch (error) {
@@ -68,7 +68,7 @@ app.get('/fetchDealers/:state', async (req, res) => {
 });
 
 app.get('/fetchDealer/:id', async (req, res) => {
-    try {
+  try {
 		const documents = await Dealerships.find({id: req.params.id});
 		res.json(documents);
 	} catch (error) {
@@ -103,5 +103,5 @@ app.post('/insert_review', express.raw({ type: '*/*' }), async (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+  console.log(`Server is running on ${port}`);
 });
